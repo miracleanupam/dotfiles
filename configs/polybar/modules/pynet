@@ -1,0 +1,25 @@
+#!/usr/bin/python
+from time import sleep
+from subprocess import check_output, run
+
+ :TODO: Remove this hardcoded dev id
+interface = "wlp6s0"
+
+def get_cat_values():
+    recv_bytes = check_output("cat /sys/class/net/{}/statistics/rx_bytes".format(interface), shell=True)
+    recv_bytes = recv_bytes.decode().strip()
+    sent_bytes = check_output("cat /sys/class/net/{}/statistics/tx_bytes".format(interface), shell=True)
+    sent_bytes = sent_bytes.decode().strip()
+    return round(int(recv_bytes)/1024, 2), round(int(sent_bytes)/1024, 2)
+
+r, s = get_cat_values()
+
+while True:
+    sleep(1)
+    new_r, new_s = get_cat_values()
+    dr, ds = round(new_r - r, 2), round(new_s - s, 2)
+    r, s = new_r, new_s
+    dl = "{:7.2f} KB".format(dr) if dr<1024 else "{:7.2f} MB".format(round(dr/1024, 2))
+    up = "{:7.2f} KB".format(ds) if ds<1024 else "{:7.2f} MB".format(round(ds/1024, 2))
+    run("""echo "%{{F#0f0}}{}  %{{F#f00}}{} " """.format(dl, up), shell=True)    
+

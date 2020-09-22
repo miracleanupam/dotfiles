@@ -1,0 +1,6 @@
+#!/usr/bin/python
+import random
+
+i = random.random()
+
+print(i)
