@@ -2,8 +2,12 @@
 from time import sleep
 from subprocess import check_output, run
 
- :TODO: Remove this hardcoded dev id
-interface = "wlp6s0"
+# ip addr shows every network devices
+# Show only the lines that start with numbers and print the second column (which contains the name of the device)
+# Get only the devices that starts with 'w' ie, wireless devices
+# I have only one wifi device so this works for me, if you want multiple ones, you might want to tweak something here
+# this name is in the form wlan0: we don't need : at the end to use substr to remove it 
+interface=check_output("""ip addr | awk '/^[0-9]/ {print $2}' | awk '/^w/ {print substr($0, 1, length($0)-1)}'""", shell=True).decode().strip()
 
 def get_cat_values():
     recv_bytes = check_output("cat /sys/class/net/{}/statistics/rx_bytes".format(interface), shell=True)
