@@ -13,7 +13,7 @@ set $mod Mod4
 set $ALT Mod1
 
 # Path for custom dmenu scripts
-set $DMENU_SCRIPTS_PATH=/home/anupam/custom_linux_commands/dmenu_scripts/
+set $DMENU_SCRIPTS_PATH=$HOME/custom_linux_commands/dmenu_scripts/
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -99,9 +99,6 @@ bindsym $mod+space focus mode_toggle
 # focus the parent container
 bindsym $mod+a focus parent
 
-# keybinding for dmenu scripts
-bindsym $mod+z exec ls /home/anupam/custom_linux_commands/dmenu_scripts | dmenu -l 30 | xargs -r /bin/bash
-
 # focus the child container
 #bindsym $mod+d focus child
 
@@ -185,39 +182,42 @@ bindsym $mod+r mode "resize"
 #         status_command i3status
 #         #status_command xfce4-panel
 # }
-exec_always --no-startup-id /home/anupam/.config/polybar/launch.sh
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 # Shortcut to lock the screen
-bindsym Control+$ALT+l exec i3lock -i /home/anupam/hello.png
+bindsym Control+$ALT+l exec i3lock -i $HOME/hello.png
 
 # Audio controls 
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5% 
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -5%
-bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5% && notify-send -t 1500 -u low "Volume +5"
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -5% && notify-send -t 1500 -u low "Volume -5"
+bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle && notify-send -t 1500 -u normal "Volume Mute toggle"
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
+bindsym XF86MonBrightnessUp exec xbacklight -inc 10
+bindsym XF86MonBrightnessDown exec xbacklight -dec 10
 
 # Assign Workspaces to Programs
-assign [class="Firefox"] $ws1
-assign [class="Thunderbird"] $ws4
-assign [class="Slack"] $ws3
-assign [class="Skype"] $ws3
-assign [class="Gnome-terminal"] $ws2
+# assign [class="Firefox"] $ws1
+# assign [class="Thunderbird"] $ws4
+# assign [class="Slack"] $ws3
+# assign [class="Skype"] $ws3
+# assign [class="Gnome-terminal"] $ws2
 
 # Start Programs on Startup
 # exec --no-startup-id xfce4-panel --disable-wm-check
 exec sct 4000
 exec "setxkbmap -layout us,np"
 exec "setxkbmap -option 'grp:alt_shift_toggle'"
-exec --no-startup-id "nitrogen --set-auto /home/anupam/hello.png"
+# exec --no-startup-id "nitrogen --set-auto /home/anupam/adsite/arch-floyd.jpg"
+exec --no-startup-id "killall -q background.sh; $HOME/custom_linux_commands/background.sh &"
 exec --no-startup-id "xfce4-clipman"
 exec --no-startup-id "nm-applet"
 
 # Screenshot section
 # Requirements: scrot, xclip
-bindsym --release Print exec "scrot /home/anupam/Screenshots/$(date --iso-8601='seconds').png -q 100 -m -e 'xclip -selection c -t image/png < $f'"
-bindsym --release $mod+Print exec "scrot /home/anupam/Screenshots/$(date --iso-8601='seconds').png -q 100 -s -e 'xclip -selection c -t image/png < $f'"
+bindsym --release Print exec "scrot $HOME/Screenshots/$(date --iso-8601='seconds').png -q 100 -m -e 'xclip -selection c -t image/png < $f'"
+bindsym --release $mod+Print exec "scrot $HOME/Screenshots/$(date --iso-8601='seconds').png -q 100 -s -e 'xclip -selection c -t image/png < $f'"
 
 # i3 gaps 
 gaps outer 2
