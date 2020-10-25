@@ -7,11 +7,29 @@ if [[ -n "$selected" ]]; then
     
     case "$action" in 
         "start")
-            sudo systemctl start "$selected";;
+            sudo systemctl start "$selected"
+            if [[ $? -ne 0 ]]; then
+                sudo -u anupam DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus notify-send -u critical -t 4000 "Could not start $selected"
+            else
+                sudo -u anupam DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus notify-send -u low -t 4000 "$selected has been started"
+            fi
+            ;;
         "halt")
-            sudo systemctl stop "$selected";;
+            sudo systemctl stop "$selected"
+            if [[ $? -ne 0 ]]; then
+                sudo -u anupam DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus notify-send -u critical -t 4000 "Could not stop $selected"
+            else
+                sudo -u anupam DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus notify-send -u low -t 4000 "$selected has been stopped"
+            fi
+            ;;
         "restart")
-            sudo systemctl restart "$selected";;
+            sudo systemctl restart "$selected"
+            if [[ $? -ne 0 ]]; then
+                sudo -u anupam DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus notify-send -u critical -t 4000 "Could not restart $selected"
+            else
+                sudo -u anupam DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus notify-send -u low -t 4000 "$selected has been restarted"
+            fi
+            ;;
         *)
             exit 0;;
     esac
