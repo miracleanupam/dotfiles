@@ -68,9 +68,9 @@ prompt spaceship
 
 source $ZSH/oh-my-zsh.sh
 
-if [[ $(nmcli device | grep wifi | grep -w "connected" | wc -l) -eq 0 ]]; then
-	nmcli device wifi connect "wifi-id" password "********" hidden yes
-fi
+# if [[ $(nmcli device | grep wifi | grep -w "connected" | wc -l) -eq 0 ]]; then
+# 	nmcli device wifi connect "wifi-id" password "********" hidden yes
+# fi
 
 # User configuration
 
@@ -85,6 +85,8 @@ fi
 # else
 #   export EDITOR='mvim'
 # fi
+export EDITOR='vim'
+export TERMINAL='urxvt'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -100,7 +102,7 @@ fi
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-#alias python="ipython"
+
 alias firefox="firefox-developer-edition"
 export ANDROID_HOME=$HOME/android-sdk
 export ANDROID_SDK_ROOT=$ANDROID_HOME
@@ -108,6 +110,8 @@ export PATH="$PATH:$HOME/flutter/flutter/bin"
 export no_proxy="localhost,127.0.0.1"
 export PATH="$PATH":"$HOME/flutter/flutter/.pub-cache/bin"
 export RANGER_LOAD_DEFAULT_RC=false
+
+# Aalto Specific
 alias cdfs="cd $HOME/Aalto/FullStack/"
 alias cdis="cd $HOME/Aalto/InfoSec/"
 alias cdcr="cd $HOME/Aalto/Cryptography/"
