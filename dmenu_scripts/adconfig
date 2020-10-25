@@ -1,17 +1,17 @@
 #!/bin/bash
 
-OPTIONS=(i3 urxvt polybar)
+OPTIONS=(i3 urxvt polybar zsh)
 
-choice="$(for i in "${OPTIONS[@]}"; do echo "$i"; done | dmenu -i -l 10)"
+CHOICE="$(for i in "${OPTIONS[@]}"; do echo "$i"; done | dmenu -i -p "Choose the config file: ")"
 
-echo $choice
-
-case $choice in
+case $CHOICE in
     "i3")
         urxvt -e vim $HOME/.config/i3/config;;
     "urxvt")
         urxvt -e vim $HOME/.Xresources;;
     "polybar")
         urxvt -e vim $HOME/.config/polybar/config;;
+    "zsh")
+        urxvt -e vim $HOME/.zshrc;;
     *)
 esac

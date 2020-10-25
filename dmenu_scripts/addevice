@@ -1,0 +1,104 @@
+#!/bin/bash
+
+# Choose whether to mount or unmount
+ACTION=$(echo -e "Mount\nUnmount" | dmenu -i -p "Choose Action: ")
+
+case $ACTION in
+    "Mount")
+        
+        # lsblk -l with not show tree format, -n will not show headings -o will only show the columsn stated in that order
+        SELECTED=$(lsblk -ln -o NAME,SIZE,TYPE,MOUNTPOINT | awk '/part/ && $4 == "" {print $1" "$2}' | dmenu -i -l 25 -p "Choose Mount Partition" | awk '{print $1}')
+
+        # If the selection is not null
+        if [[ -n $SELECTED ]]; then
+
+            # Get the mount directory or give option to create a new directory at /mnt
+            MOUNT_DIRS_OPTION="$(ls /mnt)\nCreate New"
+
+            MOUNT_DIR=$(echo -e "$MOUNT_DIRS_OPTION" | dmenu -i -l 25 -p "Choose Mount Directory")
+
+            # Do onlu if mount directory is not null
+            if [[ -n $MOUNT_DIR ]]; then
+ 
+                # If create New option was chosen
+                case $MOUNT_DIR in
+                    "Create New")
+     
+                        # Variable to check if the given directory has been successfully created
+                        ESTATUS=1
+                        while [[ $ESTATUS -ne 0 ]]
+                        do
+                            NEW_DIR=$(echo "" | dmenu -p "Enter Directory Name: ")
+
+                            echo "Trying to make $NEW_DIR"
+ 
+                            sudo mkdir /mnt/$NEW_DIR
+
+                            ESTATUS=$?
+
+                            # If the directory already exits
+                            # We run this script with sudo, so permission denied error will not occur
+                            if [[ $ESTATUS -ne 0 ]]; then
+
+                                WHAT_NEXT=$(echo -e "Create New\nExit" | dmenu -i -l 25 -p "Directory exists: ")
+
+                                if [[ $WHAT_NEXT == "Exit" ]] || [[ -z $WHAT_NEXT ]] ; then
+                                   exit 0
+                                fi
+                            fi 
+
+                        done
+
+                        # Try to mount the partition
+                        sudo mount /dev/$SELECTED /mnt/$NEW_DIR
+
+                        # If the mount command exited successfully, send a info level notification, else error level notification
+                        # Because we are running this script as root, notify-send will try to use root's DBUS to send notifications
+                        # This way we tell it to use my DBUS address so that I receive the notification
+                        # 1000  is my userid
+                        if [[ $? -ne 0 ]]; then
+                            sudo -u anupam DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus notify-send -u critical -t 4000 "Could not be mounted"
+                        else
+                            sudo -u anupam DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus notify-send -u low -t 4000 "Successfully mounted on /mnt/$NEW_DIR"
+                        fi
+                        ;;
+                    "")
+                        echo "empty ma aayo"
+                        ;;
+                    *)
+                        # If the user has chosen already exiting directory as mount point
+                        # Try to mount the partition at that directory
+                        sudo mount /dev/$SELECTED /mnt/$MOUNT_DIR
+
+                        # Send notifications as needed
+                        if [[ $? -ne 0 ]]; then
+                            sudo -u anupam DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus notify-send -u critical -t 4000 "Could not be mounted"
+                        else
+                            sudo -u anupam DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus notify-send -u low -t 4000 "Successfully mounted on /mnt/$NEW_DIR"
+                        fi
+                        ;;
+                esac
+            fi
+        fi
+        ;;
+    "Unmount")
+        # Select which mount point to unmount
+        SELECTED=$(lsblk -ln -o NAME,SIZE,MOUNTPOINT | awk '$3 ~ /^\/mnt/ {print $1" "$2" "$3}' | dmenu -i -l 25 -p "Choose Mount Point" | awk '{print $3}' )
+
+        # Do only is selection is not null
+        if [[ -n $SELECTED ]]; then
+
+            # Try to unmount partition
+            sudo umount -R $SELECTED
+
+            if [[ $? -ne 0 ]]; then
+                sudo -u anupam DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus notify-send -u critical -t 4000 "Could not be unmounted"
+            else
+                sudo -u anupam DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus notify-send -u low -t 4000 "Successfully unmounted"
+            fi
+        fi
+        ;;
+    *)
+        echo "nothing"
+        ;;
+esac

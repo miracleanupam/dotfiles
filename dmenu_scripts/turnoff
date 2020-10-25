@@ -1,0 +1,11 @@
+#!/bin/bash
+
+CHOICE="$(echo -e "Shutdown\nReboot" | dmenu -i -p "Choose what to do: ")"
+
+case $CHOICE in
+    "Shutdown")
+        shutdown now;;
+    "Reboot")
+        sudo reboot now;;
+    *)
+esac

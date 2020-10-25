@@ -1,0 +1,18 @@
+#!/bin/bash
+
+selected=$(systemctl list-unit-files --no-pager --type=service --no-legend | awk '{print $1}' | dmenu -i -p "Choose Service" )
+
+if [[ -n "$selected" ]]; then
+    action=$(echo -e "start\nhalt\nrestart" | dmenu -i -p "Choose Action")
+    
+    case "$action" in 
+        "start")
+            sudo systemctl start "$selected";;
+        "halt")
+            sudo systemctl stop "$selected";;
+        "restart")
+            sudo systemctl restart "$selected";;
+        *)
+            exit 0;;
+    esac
+fi

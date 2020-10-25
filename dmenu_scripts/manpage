@@ -1,3 +1,8 @@
-#! /bin/bash
+#!/bin/bash
 
-man -k . | awk '{print $1}' | dmenu -l 30 | xargs -r man -Tpdf | zathura -
+choice="$(man -k . | awk '{print $1}' | sort -u | dmenu -l 30 -p "Choose the man page for: ")"
+
+# Check if the string is not null, -n and -z are opposite
+if [ -n "$choice" ]; then
+    man -Tpdf $choice| zathura -
+fi
