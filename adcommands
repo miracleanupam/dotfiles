@@ -1,8 +1,8 @@
-#!/bin/zsh
+#!/bin/bash
 
 OPTIONS=(config device manpage power service)
 
-CHOICE="$(for i in "${OPTIONS[@]}"; do echo "$i"; done | dmenu -i -p "Choose script: ")"
+CHOICE="$(for i in "${OPTIONS[@]}"; do echo "$i"; done | dmenu -i -p "Choose Script: ")"
 
 LOGFILE=/home/anupam/custom_linux_commands/logs
 
