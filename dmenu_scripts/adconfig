@@ -4,14 +4,15 @@ OPTIONS=(i3 urxvt polybar zsh)
 
 CHOICE="$(for i in "${OPTIONS[@]}"; do echo "$i"; done | dmenu -i -p "Choose the config file: ")"
 
+echo "$CHOICE"
 case $CHOICE in
     "i3")
-        urxvt -e vim $HOME/.config/i3/config;;
+        i3-sensible-terminal -e vim $HOME/.config/i3/config;;
     "urxvt")
-        urxvt -e vim $HOME/.Xresources;;
+        i3-sensible-terminal -e vim $HOME/.Xresources;;
     "polybar")
-        urxvt -e vim $HOME/.config/polybar/config;;
+        i3-sensible-terminal -e vim $HOME/.config/polybar/config;;
     "zsh")
-        urxvt -e vim $HOME/.zshrc;;
+        i3-sensible-terminal -e vim $HOME/.zshrc;;
     *)
 esac
