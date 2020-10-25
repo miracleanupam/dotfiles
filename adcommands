@@ -1,0 +1,21 @@
+#!/bin/zsh
+
+OPTIONS=(config device manpage power service)
+
+CHOICE="$(for i in "${OPTIONS[@]}"; do echo "$i"; done | dmenu -i -p "Choose script: ")"
+
+LOGFILE=/home/anupam/custom_linux_commands/logs
+
+case $CHOICE in 
+    "config")
+        /home/anupam/custom_linux_commands/dmenu_scripts/adconfig >> $LOGFILE;;
+    "device")
+	sudo /home/anupam/custom_linux_commands/dmenu_scripts/addevice >> $LOGFILE;;
+    "manpage")
+	/home/anupam/custom_linux_commands/dmenu_scripts/manpage >> $LOGFILE;;
+    "power")
+	sudo /home/anupam/custom_linux_commands/dmenu_scripts/turnoff >> $LOGFILE;;
+    "service")
+        sudo /home/anupam/custom_linux_commands/dmenu_scripts/adservice >> $LOGFILE;;
+    *)
+esac   
