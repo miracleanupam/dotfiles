@@ -13,6 +13,6 @@ case $CHOICE in
     "polybar")
         i3-sensible-terminal -e vim $HOME/.config/polybar/config;;
     "zsh")
-        i3-sensible-terminal -e vim $HOME/.zshrc;;
+        i3-sensible-terminal -e vim $HOME/.config/zsh/.zshrc;;
     *)
 esac
