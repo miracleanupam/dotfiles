@@ -14,4 +14,7 @@ set path+=**
 " Display matching file with tab completion
 set wildmenu
 
+" Set smart indent
+set autoindent
+
 filetype plugin on
