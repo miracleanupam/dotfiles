@@ -54,6 +54,7 @@ prompt spaceship
 # stamp shown in the history command output.
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 # HIST_STAMPS="mm/dd/yyyy"
+HISTFILE=$HOME/.config/zsh/.zsh_history
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
@@ -80,11 +81,6 @@ source $ZSH/oh-my-zsh.sh
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
 export EDITOR='vim'
 export TERMINAL='urxvt'
 
@@ -111,11 +107,13 @@ export no_proxy="localhost,127.0.0.1"
 export PATH="$PATH":"$HOME/flutter/flutter/.pub-cache/bin"
 export RANGER_LOAD_DEFAULT_RC=false
 
-# Aalto Specific
+# Aalto Specific 
 alias cdfs="cd $HOME/Aalto/FullStack/"
 alias cdis="cd $HOME/Aalto/InfoSec/"
 alias cdcr="cd $HOME/Aalto/Cryptography/"
 alias cdcs="cd $HOME/Aalto/CloudSoft/"
+alias cdwb="cd $HOME/Aalto/WebDev/"
+alias cdns="cd $HOME/Aalto/NetSec/"
 
 # Git aliases
 alias gss="git status"
@@ -134,6 +132,14 @@ alias ga="git add"
 alias gct="git commit -m"
 alias gl="git log"
 
+# Zsh syntax highlighting
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# Alias for toggling home and end keys
+alias homeon='xmodmap -e "keycode 108 = Home" && xmodmap -e "keycode 105 = End"'
+alias homeoff=setxkbmap
+
+# Spaceship prompt settings
 SPACESHIP_PROMPT_ORDER=(
 	dir           # Current directory section
 	git           # Get section (git_branch + git status)
