@@ -2,7 +2,7 @@
 syntax enable
 
 " Show line numbers
-set number
+set number relativenumber
 
 " Don't bother with backwards compatability
 set nocompatible
@@ -47,7 +47,7 @@ filetype indent on
 
 " Keyboard Shortcuts
 " Toggle line numbers
-noremap <F9> :set invnumber<CR>
+noremap <F9> :set number! relativenumber!<CR>
 
 " Toggle search highlight with F6
 " Setting hlsearch on highlight the keywords even when you don't need them, so
