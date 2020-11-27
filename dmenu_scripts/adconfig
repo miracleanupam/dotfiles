@@ -1,6 +1,6 @@
 #!/bin/bash
 
-OPTIONS=(i3 urxvt polybar zsh)
+OPTIONS=(i3 urxvt polybar zsh vim)
 
 CHOICE="$(for i in "${OPTIONS[@]}"; do echo "$i"; done | dmenu -i -p "Choose the config file: ")"
 
@@ -14,5 +14,7 @@ case $CHOICE in
         i3-sensible-terminal -e vim $HOME/.config/polybar/config;;
     "zsh")
         i3-sensible-terminal -e vim $HOME/.config/zsh/.zshrc;;
+    "vim")
+        i3-sensible-terminal -e vim $HOME/.vimrc;;
     *)
 esac
