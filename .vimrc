@@ -49,6 +49,9 @@ filetype indent on
 " Toggle line numbers
 noremap <F9> :set number! relativenumber!<CR>
 
+" Keybind for moving around buffers easily
+noremap <F7> :buffers<CR>:buffer<Space>
+
 " Toggle search highlight with F6
 " Setting hlsearch on highlight the keywords even when you don't need them, so
 " toggling would be a better choice
