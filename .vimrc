@@ -51,6 +51,8 @@ noremap <F9> :set number! relativenumber!<CR>
 
 " Keybind for moving around buffers easily
 noremap <F7> :buffers<CR>:buffer<Space>
+nnoremap <C-n> :bn<CR>
+nnoremap <C-m> :bp<CR>
 
 " Toggle search highlight with F6
 " Setting hlsearch on highlight the keywords even when you don't need them, so
