@@ -36,6 +36,9 @@ set tabstop=4 softtabstop=4 expandtab shiftwidth=4 smarttab
 " Reload the file on changes
 set autoread
 
+" Use system clipboard for yanking and pasting, needs gVim
+set clipboard=unnamedplus
+
 " Map W to w and Q to q
 :command WQ wq
 :command Wq wq
