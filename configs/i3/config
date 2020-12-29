@@ -212,6 +212,7 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 10
 exec sct 4000
 exec "setxkbmap -layout us,np -option 'grp:alt_shift_toggle'"
 exec --no-startup-id "killall -q background.sh; $HOME/custom_linux_commands/background.sh &"
+exec --no-startup-id "killall -q battery_level_notifier.sh; $HOME/custom_linux_commands/battery_level_notifier.sh &"
 exec --no-startup-id "xfce4-clipman"
 exec --no-startup-id "nm-applet"
 exec --no-startup-id "pasystray"
