@@ -12,7 +12,7 @@ while true
                 CHECK_DELAY_IN_SECS=600;
             elif [[ $BATTERY_PERC -lt 35 ]]; then
                 CHECK_DELAY_IN_SECS=300;
-            elif [[ $BATTERY_PERC -gt 30 ]]; then
+            elif [[ $BATTERY_PERC -lt 30 ]]; then
                 CHECK_DELAY_IN_SECS=150;
             elif [[ $BATTERY_PERC -lt 26 ]]; then
                 sudo -u anupam DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus notify-send -u critical -t $CHECK_DELAY_IN_SECS "Battery Low, Plug In Power Source";
