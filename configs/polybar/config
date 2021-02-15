@@ -55,10 +55,13 @@ font-0 = "fixed:pixelsize=10;1"
 font-1 = "unifont:fontformat=truetype:size=8:antialias=false;0"
 font-2 = "Font Awesome:style=Regular:size=8;0"
 font-3 = "siji:pixelsize=20;1"
+font-4 = "Tamsyn:pixelsize=12;0"
+font-5 = "Roboto:size=11:weight=bold;2"
+font-6 = "Noto Sans:size=11;1"
 
 modules-left = i3
 ;modules-center = mpd
-modules-right = netload memory cpu battery temperature date screenshot
+modules-right = netload memory cpu battery temperature date screenshot xkeyboard
 
 tray-position = right
 tray-padding = 2
@@ -206,7 +209,7 @@ card = intel_backlight
 [module/cpu]
 type = internal/cpu
 interval = 2
-format-prefix = " "
+format-prefix = " "
 ;format-underline = #f90000
 format-underline = #008080
 ;format-prefix-foreground = ${colors.foreground-alt}
@@ -345,34 +348,44 @@ format-charging-underline = #ffb52a
 format-discharging = <animation-discharging> <label-discharging>
 format-discharging-underline = ${self.format-charging-underline}
 
-format-full-prefix = " "
+;format-full-prefix = " "
+format-full-prefix = "  "
 ;format-full-prefix-foreground = ${colors.foreground-alt}
 format-full-prefix-foreground = ${self.format-charging-underline}
 format-full-underline = ${self.format-charging-underline}
 
-ramp-capacity-0 = 
-ramp-capacity-1 = 
-ramp-capacity-2 = 
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+;ramp-capacity-0 = 
+;ramp-capacity-1 = 
+;ramp-capacity-2 = 
 ramp-capacity-foreground = #ff0000
 ;${colors.foreground-alt}
 
-animation-charging-0 = 
-animation-charging-1 = 
-animation-charging-2 = 
+;animation-charging-0 = 
+;animation-charging-1 = 
+;animation-charging-2 = 
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
 animation-charging-foreground = #00ff00
 ;${colors.foreground-alt}
 animation-charging-framerate = 750
 
-animation-discharging-0 = 
-animation-discharging-1 = 
-animation-discharging-2 = 
+;animation-discharging-0 = 
+;animation-discharging-1 = 
+;animation-discharging-2 = 
+animation-discharging-0 = 
+animation-discharging-1 = 
+animation-discharging-2 = 
 animation-discharging-foreground = #ff0000
 ;${colors.foreground-alt}
 animation-discharging-framerate = 750
 
 [module/temperature]
 type = internal/temperature
-thermal-zone = 0
+thermal-zone = 12
 warn-temperature = 60
 
 format = <ramp> <label>
@@ -393,6 +406,7 @@ ramp-2 = 
 ;ramp-2 = 
 ;ramp-foreground = ${colors.foreground-alt}
 ramp-foreground = ${self.format-underline}
+interval = 10
 
 [module/powermenu]
 type = custom/menu
