@@ -198,8 +198,8 @@ bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle && notify-send -t 1500 -
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
-bindsym XF86MonBrightnessUp exec xbacklight -inc 10
-bindsym XF86MonBrightnessDown exec xbacklight -dec 10
+bindsym XF86MonBrightnessUp exec sudo /home/anupam/custom_linux_commands/brightness.sh -i 10
+bindsym XF86MonBrightnessDown exec sudo /home/anupam/custom_linux_commands/brightness.sh -d 10
 
 # Assign Workspaces to Programs
 # assign [class="Firefox"] $ws1
