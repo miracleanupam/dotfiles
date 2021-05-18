@@ -17,7 +17,7 @@ case $ACTION in
 
             MOUNT_DIR=$(echo -e "$MOUNT_DIRS_OPTION" | dmenu -i -l 25 -p "Choose Mount Directory")
 
-            # Do onlu if mount directory is not null
+            # Do only if mount directory is not null
             if [[ -n $MOUNT_DIR ]]; then
  
                 # If create New option was chosen
@@ -57,9 +57,9 @@ case $ACTION in
                         # This way we tell it to use my DBUS address so that I receive the notification
                         # 1000  is my userid
                         if [[ $? -ne 0 ]]; then
-                            sudo -u anupam DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus notify-send -u critical -t 4000 "Could not be mounted"
+                            sudo -u anupam DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus notify-send -u critical -t 4000 "Could not be mounted";
                         else
-                            sudo -u anupam DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus notify-send -u low -t 4000 "Successfully mounted on /mnt/$NEW_DIR"
+                            sudo -u anupam DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus notify-send -u low -t 4000 "Successfully mounted on /mnt/$NEW_DIR";
                         fi
                         ;;
                     "")
@@ -68,13 +68,15 @@ case $ACTION in
                     *)
                         # If the user has chosen already exiting directory as mount point
                         # Try to mount the partition at that directory
-                        sudo mount /dev/$SELECTED /mnt/$MOUNT_DIR
+                        echo "Trying to mount";
+                        sudo mount /dev/$SELECTED /mnt/$MOUNT_DIR;
 
                         # Send notifications as needed
                         if [[ $? -ne 0 ]]; then
-                            sudo -u anupam DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus notify-send -u critical -t 4000 "Could not be mounted"
+                            sudo -u anupam DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus notify-send -u critical -t 4000 "Could not be mounted";
                         else
-                            sudo -u anupam DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus notify-send -u low -t 4000 "Successfully mounted on /mnt/$NEW_DIR"
+                            echo "Failed"
+                            sudo -u anupam DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus notify-send -u low -t 4000 "Successfully mounted on /mnt/$NEW_DIR";
                         fi
                         ;;
                 esac
