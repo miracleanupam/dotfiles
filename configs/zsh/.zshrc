@@ -107,30 +107,31 @@ export no_proxy="localhost,127.0.0.1"
 export PATH="$PATH":"$HOME/flutter/flutter/.pub-cache/bin"
 export RANGER_LOAD_DEFAULT_RC=false
 
-# Aalto Specific 
-alias cdfs="cd $HOME/Aalto/FullStack/"
-alias cdis="cd $HOME/Aalto/InfoSec/"
-alias cdcr="cd $HOME/Aalto/Cryptography/"
-alias cdcs="cd $HOME/Aalto/CloudSoft/"
-alias cdwb="cd $HOME/Aalto/WebDev/"
-alias cdns="cd $HOME/Aalto/NetSec/"
-
 # Git aliases
 alias gss="git status"
 alias gd="git diff"
 alias gco="git checkout"
 alias gcb="git checkout -b"
-alias gcom="git checkout master"
+alias gcom="git checkout master 2>/dev/null || git checkout main"
 alias gpo="git push origin"
-alias gpom="git push origin master"
+alias gpom="git push origin master 2>/dev/null || git push origin main"
 alias gpu="git pull"
-alias gpum="git pull origin master"
+alias gpum="git pull origin master 2>/dev/null || git pull origin main"
 alias gm="git merge"
 alias gr="git restore"
 alias grs="git restore --staged"
 alias ga="git add"
 alias gct="git commit -m"
 alias gl="git log"
+
+# To be deleted when done with the courses at DTU
+alias ofmc="/home/anupam/Downloads/ofmc-2020/efl/ofmc"
+
+# Mount aliases
+alias mcard="sudo mount /dev/mmcblk0p1 /mnt/mcard/"
+alias umcard="sudo umount -R /mnt/mcard"
+alias mwin="sudo mount /dev/nvme0n1p4 /mnt/windrive/"
+alias umwin="sudo umount -R /mnt/windrive"
 
 # Zsh syntax highlighting
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -143,7 +144,7 @@ alias homeoff=setxkbmap
 SPACESHIP_PROMPT_ORDER=(
 	dir           # Current directory section
 	git           # Get section (git_branch + git status)
-        docker        #Docker section
+    docker        #Docker section
 	venv          # virtualenv section
 	terraform     # Terraform workspace section
 	exec_time     # Execution time
