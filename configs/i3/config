@@ -189,7 +189,7 @@ bindsym $mod+Ctrl+r exec --no-startup-id "redshift-gtk"
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 # Shortcut to lock the screen
-bindsym Control+$ALT+l exec i3lock -ef -i $HOME/wallpapers/bender007.png
+bindsym Control+$ALT+l exec i3lock -ef -i $HOME/wallpapers/bender007.png -t
 
 # Audio controls 
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5% && notify-send -t 1500 -u low "Volume +5"
