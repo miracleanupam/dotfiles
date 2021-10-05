@@ -1,3 +1,6 @@
+let mapleader = " "
+nnoremap <leader>sop :source ~/.vimrc<CR>
+
 " Enable syntax highlighting
 syntax enable
 
@@ -48,6 +51,133 @@ let g:netrw_browsex_viewer= "xdg-open"
 :command W w
 :command Q q
 
+" Keep selection after indenting, gv reselects the last reselction
+vnoremap > >gv
+vnoremap < <gv
+
+" Sort lines in alphabetic order
+vnoremap <C-s> :sort<CR>
+
+function! ChooseUnicodeSymbol()
+    call inputsave()
+    let symbol = input('Choose Symbol: ')
+    if symbol == "fa"
+        let returnval = "∀"
+    elseif symbol == "phi"
+        let returnval = "Φ"
+    elseif symbol == "es"
+        let returnval = "□"
+    elseif symbol == "te"
+        let returnval = "∃"
+    elseif symbol == "ec"
+        let returnval = "〇"
+    elseif symbol == "s0"
+        let returnval = "₀"
+    elseif symbol == "s1"
+        let returnval = "₁"
+    elseif symbol == "s2"
+        let returnval = "₂"
+    elseif symbol == "s3"
+        let returnval = "₃"
+    elseif symbol == "s4"
+        let returnval = "₄"
+    elseif symbol == "s5"
+        let returnval = "₅"
+    elseif symbol == "s6"
+        let returnval = "₆"
+    elseif symbol == "s7"
+        let returnval = "₇"
+    elseif symbol == "s8"
+        let returnval = "₈"
+    elseif symbol == "s9"
+        let returnval = "₉"
+    elseif symbol == "be"
+        let returnval = "ϵ"
+    elseif symbol == "pie"
+        let returnval = "π"
+    elseif symbol == "er"
+        let returnval = "◊"
+    elseif symbol == "di"
+        let returnval = "÷"
+    elseif symbol == "in"
+        let returnval = "∞"
+    elseif symbol == "ti"
+        let returnval = "√"
+    elseif symbol == "ne"
+        let returnval = "≠"
+    elseif symbol == "lte"
+        let returnval = "≤"
+    elseif symbol == "gte"
+        let returnval = "≥"
+    elseif symbol == "sbo"
+        let returnval = "⊂"
+    elseif symbol == "spo"
+        let returnval = "⊃"
+    elseif symbol == "sbe"
+        let returnval = "⊆"
+    elseif symbol == "spe"
+        let returnval = "⊇"
+    elseif symbol == "est"
+        let returnval = "▷"
+    elseif symbol == "fst"
+        let returnval = "▶"
+    elseif symbol == "eet"
+        let returnval = "◁"
+    elseif symbol == "fet"
+        let returnval = "◀"
+    elseif symbol == "ok"
+        let returnval = "✓"
+    elseif symbol == "bx"
+        let returnval = "✗"
+    elseif symbol == "dor"
+        let returnval = "‖"
+    elseif symbol == "arr"
+        let returnval = "→"
+    elseif symbol == "rarr"
+        let returnval = "←"
+    elseif symbol == "darr"
+        let returnval = "↔"
+    elseif symbol == "lda"
+        let returnval = "⇒"
+    elseif symbol == "rda"
+        let returnval = "⇐"
+
+    elseif symbol == "pm"
+        let returnval = "±"
+    elseif symbol == "dda"
+        let returnval = "⇔"
+    elseif symbol == "ae"
+        let returnval = "≈"
+    elseif symbol == "is"
+        let returnval = "∩"
+    elseif symbol == "un"
+        let returnval = "∪"
+    elseif symbol == "or"
+        let returnval = "∨"
+    elseif symbol == "and"
+        let returnval = "∧"
+    elseif symbol == "os"
+        let returnval = "ø"
+    else
+        let returnval = ""
+    endif
+    call inputrestore()
+    return returnval
+endfunction
+
+inoremap <expr> <C-j> ''.ChooseUnicodeSymbol().''
+
+function! UnderLine(width)
+    if a:width == 1
+        :normal! mmyypVr=`m
+    else
+        :normal! mmyypVr-`m
+    endif
+endfunction
+
+nnoremap ;ue :call UnderLine(1)<CR>
+nnoremap ;ud :call UnderLine(0)<CR>
+
 filetype plugin on
 filetype indent on
 
@@ -63,6 +193,8 @@ noremap <F9> :set number! relativenumber!<CR>
 noremap <F7> :buffers<CR>:buffer<Space>
 nnoremap <C-n> :bn<CR>
 nnoremap <C-m> :bp<CR>
+nnoremap <C-N> gt<CR>
+nnoremap <C-M> gT<CR>
 
 " Toggle search highlight with F6
 " Setting hlsearch on highlight the keywords even when you don't need them, so
