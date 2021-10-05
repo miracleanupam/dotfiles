@@ -40,11 +40,7 @@
 
 !! URxvt Appearance
 URxvt.foreground: #45bd00
-URxvt.font: xft:Fira Mono for Powerline:size=11
-! URxvt.font: xft:Consolas Ligaturiezed:size=11
-! URxvt.boldFont: -*-rissole-*
-! URxvt.italicFont: -*-rissole-*
-! URxvt.boldItalicfont: -*-rissole-*
+URxvt.font: xft:Fira Mono for Powerline:pixelsize=16, xft:Font Awesome:pixelsize=16
 URxvt.letterSpace: 0
 URxvt.lineSpace: 0
 URxvt.geometry: 92x24
@@ -58,14 +54,8 @@ URxvt.urgentOnBell: true
 ! URxvt.depth: 24
 URxvt.iso14755: false
 
-!! Change the font size
-URxvt.keysym.C-k: resize-font:smaller
-URxvt.keysym.C-j: resize-font:bigger
-URxvt.keysym.C-equal: resize-font:reset
-URxvt.keysym.C-question: resize-font:show
-
 !! Copy Paste & Other Extensions
-URxvt.perl-ext-common: default,clipboard,url-select,keyboard-select
+URxvt.perl-ext-common: default,clipboard,url-select,keyboard-select,matcher,resize-font
 URxvt.copyCommand: xclip -i -selection clipboard
 URxvt.pasteCommand: xclip -o -selection clipboard
 URxvt.keysym.M-c: perl:clipboard:copy
@@ -74,7 +64,8 @@ URxvt.keysym.M-C-v: perl:clipboard:paste_escaped
 URxvt.keysym.M-Escape: perl:keyboard-select:activate
 URxvt.keysym.M-s: perl:keyboard-select:search
 URxvt.keysym.M-u: perl:url-select:select_next
-URxvt.urlLauncher: firefox
+URxvt.matcher.button: 1
+URxvt.urlLauncher: /usr/bin/xdg-open
 URxvt.underlineURLs: true
 URxvt.urlButton: 1
 
