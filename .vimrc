@@ -1,3 +1,4 @@
+set encoding=utf-8
 let mapleader = " "
 nnoremap <leader>sop :source ~/.vimrc<CR>
 
@@ -6,6 +7,12 @@ syntax enable
 
 " Show line numbers
 set number relativenumber
+
+" Folding method, best for python development
+set foldmethod=indent
+set foldlevel=99
+noremap <S-f> za
+noremap <C-f> zA
 
 " Don't bother with backwards compatability
 set nocompatible
@@ -141,7 +148,6 @@ function! ChooseUnicodeSymbol()
         let returnval = "⇒"
     elseif symbol == "rda"
         let returnval = "⇐"
-
     elseif symbol == "pm"
         let returnval = "±"
     elseif symbol == "dda"
