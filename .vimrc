@@ -8,11 +8,25 @@ syntax enable
 " Show line numbers
 set number relativenumber
 
+" Statuslin
+set laststatus=2
+set statusline=
+set statusline+=\ %f
+set statusline+=\ %m
+set statusline+=%=
+set statusline+=%l,%c
+
 " Folding method, best for python development
-set foldmethod=indent
-set foldlevel=99
-noremap <S-f> za
-noremap <C-f> zA
+" set foldmethod=indent
+" set foldlevel=99
+" noremap <S-f> za
+" noremap <C-f> zA
+
+" Map <F1> to <Esc> so that help menu does not open by mistake when trying to
+" press <Esc>
+map <F1> <Esc>
+imap <F1> <Esc>
+inoremap jj <Esc>
 
 " Don't bother with backwards compatability
 set nocompatible
@@ -187,6 +201,10 @@ nnoremap ;ud :call UnderLine(0)<CR>
 filetype plugin on
 filetype indent on
 
+" Commentary shortcut
+nnoremap <C-l> :Commentary<CR>
+vnoremap <C-l> :Commentary<CR>
+
 " gx downloads the webpage and opens it
 " this is just a work around from the internet
 nmap gx yiW:!xdg-open <cWORD><CR> <C-r>" & <CR><CR>
@@ -199,18 +217,38 @@ noremap <F9> :set number! relativenumber!<CR>
 noremap <F7> :buffers<CR>:buffer<Space>
 nnoremap <C-n> :bn<CR>
 nnoremap <C-m> :bp<CR>
-nnoremap <C-N> gt<CR>
-nnoremap <C-M> gT<CR>
+nnoremap <S-N> gt<CR>
+nnoremap <S-M> gT<CR>
 
 " Toggle search highlight with F6
 " Setting hlsearch on highlight the keywords even when you don't need them, so
 " toggling would be a better choice
 noremap <F6> :set hlsearch!<CR>
+nnoremap <F5> :ter ++rows=10<CR>
+inoremap <F5> :ter ++rows=10<CR>
+vnoremap <F5> :ter ++rows=10<CR>
+
+" netrw Settings
+" let g:netrw_keepdir=0
+let g:netrw_liststyle=3
+let g:netrw_winsize=30
+let g:netrw_banner=0
+
+" Open netrw in the directory of the current file
+nnoremap <F3> :Lexplore %:p:h<CR>
+" Open netrw in current working directory
+nnoremap <F4> :Lexplore<CR>
 
 " Mapping to move to next place holder, works on all files
 " Placeholder is chosen as <++> as it is very unlikely to come across this
 " pattern anywehere
 inoremap <Tab><Tab><Tab> <Esc>/<++><CR>"_c4l
+
+" Keyremaps for generating opening and closing tags
+" type the tag to create and press Shift+t
+inoremap <C-t> <<++>><++></><Esc>13hdiwp11lp0/<++><CR>"_c4l
+inoremap ;rt <% <++> %><Esc>6h4cl
+inoremap ;rtt <%= <++> %><Esc>6h4cl
 
 " When javascript files are opened, make this key bindings available
 " The "_ redirects the change/deletion of placeholders to arbitary buffer
@@ -246,3 +284,48 @@ autocmd FileType python inoremap ;nm if __name__ == "__main__":<CR>
 " Create a import skeleton
 autocmd FileType python inoremap ;i import 
 autocmd FileType python inoremap ;fi from <++> import <++><Esc>0/<++><CR>"_cw
+
+
+" ALE Config
+let g:ale_linters_explicit = 1
+let g:ale_linters = { 
+            \ 'ruby': ['rubocop'],
+            \ 'python': ['pylint'],
+            \ 'javascript': ['eslint'],
+            \}
+let g:ale_fixers = { 'ruby': ['rubocop'] }
+let g:airline#extensions#ale#enabled = 1
+let g:ale_sign_column_always = 1
+
+" Mapping for ALEFix
+nnoremap ;fix :ALEFix<CR>
+
+function RSpecLine()
+    execute ':w'
+    execute "!rspec -fd %:".line(".")
+endfunction
+
+function RSpecFile()
+    execute ':w'
+    execute "!rspec -fd %"
+endfunction
+
+function RSpecAll()
+    execute ':w'
+    execute "!rspec -fd"
+endfunction
+
+nnoremap ;rl :call RSpecLine()<CR>
+nnoremap ;rf :call RSpecFile()<CR>
+nnoremap ;ra :call RSpecAll()<CR>
+
+call plug#begin()
+Plug 'vimwiki/vimwiki'
+Plug 'tpope/vim-commentary'
+Plug 'dense-analysis/ale'
+Plug 'vim-airline/vim-airline'
+call plug#end()
+
+" let g:vimwiki_list = [{ 'path': '~/notes', 'syntax': 'markdown', 'ext': '.md' }]
+
+" autocmd FileType vimwiki set ft=markdown

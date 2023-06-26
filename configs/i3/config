@@ -33,6 +33,10 @@ font pango:monospace 8
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
+# Remove title bars, using pixel style removes them while setting
+# border of 2px on sides
+default_border pixel 2
+
 # start a terminal
 bindsym $mod+Return exec i3-sensible-terminal
 
@@ -150,6 +154,7 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 bindsym $mod+w exec firefox-developer-edition
 bindsym $mod+Shift+Return exec urxvt -e ranger
 bindsym $mod+t exec telegram-desktop
+bindsym $mod+Shift+t exec thunar
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -209,20 +214,16 @@ bindsym XF86MonBrightnessDown exec sudo /home/anupam/custom_linux_commands/brigh
 # assign [class="Gnome-terminal"] $ws2
 
 # Start Programs on Startup
-exec sct 4000
+# exec sct 4000
 exec "setxkbmap -layout us,np -option 'grp:alt_shift_toggle'"
 exec --no-startup-id "killall -q background.sh; $HOME/custom_linux_commands/background.sh &"
 exec --no-startup-id "killall -q battery_level_notifier.sh; $HOME/custom_linux_commands/battery_level_notifier.sh &"
 exec --no-startup-id "xfce4-clipman"
 exec --no-startup-id "nm-applet"
+exec --no-startup-id "blueman-applet"
 exec --no-startup-id "pasystray"
-# exec --no-startup-id "picom &"
-
-# Screenshot section
-# Requirements: scrot, xclip
-# bindsym --release Print exec "scrot $HOME/Screenshots/$(date --iso-8601='seconds').png -q 100 -m -e 'xclip -selection c -t image/png < $f'"
-# bindsym --release $mod+Print exec "scrot $HOME/Screenshots/$(date --iso-8601='seconds').png -q 100 -s -e 'xclip -selection c -t image/png < $f'"
+exec --no-startup-id "alternating_layouts.py"
 
 # i3 gaps 
 gaps outer 2
-gaps inner 5
+gaps inner 2
