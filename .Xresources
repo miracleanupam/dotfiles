@@ -37,19 +37,21 @@
 *.color7: #bfbaac
 *.color15: #fdf6e3
 
-
 !! URxvt Appearance
 URxvt.foreground: #45bd00
-URxvt.font: xft:Fira Mono for Powerline:pixelsize=16, xft:Font Awesome:pixelsize=16
+URxvt.font: xft:Fira Mono for Powerline:pixelsize=16, xft:Font Awesome:pixelsize=14
 URxvt.letterSpace: 0
 URxvt.lineSpace: 0
 URxvt.geometry: 92x24
 URxvt.internalBorder: 5 
 URxvt.cursorBlink: true
 URxvt.cursorUnderline: false
-URxvt.saveline: 2048
+URxvt.saveline: 10000
 URxvt.scrollBar: false
 URxvt.scrollBar_right: false
+URxvt.scrollTtyOutput: false
+URxvt.scrollWithBuffer: true
+URxvt.scrollTtyKeypress: true
 URxvt.urgentOnBell: true
 ! URxvt.depth: 24
 URxvt.iso14755: false
