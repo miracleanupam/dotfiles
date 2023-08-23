@@ -99,13 +99,16 @@ export TERMINAL='urxvt'
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias firefox="firefox-developer-edition"
-export ANDROID_HOME=$HOME/android-sdk
+alias firefox=firefox-developer-edition
+alias grepper=$HOME/custom_linux_commands/dmenu_scripts/grepper.sh
+export ANDROID_HOME=$HOME/Android/Sdk
 export ANDROID_SDK_ROOT=$ANDROID_HOME
-export PATH="$PATH:$HOME/flutter/flutter/bin"
+export PATH="$PATH:$HOME/flutter/bin"
 export no_proxy="localhost,127.0.0.1"
-export PATH="$PATH":"$HOME/flutter/flutter/.pub-cache/bin"
+export PATH="$PATH":"$HOME/flutter/.pub-cache/bin"
 export RANGER_LOAD_DEFAULT_RC=false
+export PATH="$PATH":"$GEM_HOME/bin"
+export CHROME_EXECUTABLE=/usr/bin/google-chrome-stable
 
 # Git aliases
 alias gss="git status"
@@ -124,27 +127,29 @@ alias ga="git add"
 alias gct="git commit -m"
 alias gl="git log"
 
-# To be deleted when done with the courses at DTU
-alias ofmc="/home/anupam/Downloads/ofmc-2020/efl/ofmc"
-
 # Mount aliases
-alias mcard="sudo mount /dev/mmcblk0p1 /mnt/mcard/"
-alias umcard="sudo umount -R /mnt/mcard"
-alias mwin="sudo mount /dev/nvme0n1p4 /mnt/windrive/"
-alias umwin="sudo umount -R /mnt/windrive"
+# alias mcard="sudo mount /dev/mmcblk0p1 /mnt/mcard/"
+# alias umcard="sudo umount -R /mnt/mcard"
+# alias mwin="sudo mount /dev/nvme0n1p4 /mnt/windrive/"
+# alias umwin="sudo umount -R /mnt/windrive"
+
+# Utility aliases
+alias xcopy="xclip -selection clipboard"
 
 # Zsh syntax highlighting
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $HOME/.rvm/scripts/rvm
+source /usr/share/nvm/init-nvm.sh
 
 # Alias for toggling home and end keys
-alias homeon='xmodmap -e "keycode 108 = Home" && xmodmap -e "keycode 105 = End"'
-alias homeoff=setxkbmap
+# alias homeon='xmodmap -e "keycode 108 = Home" && xmodmap -e "keycode 105 = End"'
+# alias homeoff=setxkbmap
 
 # Spaceship prompt settings
 SPACESHIP_PROMPT_ORDER=(
 	dir           # Current directory section
 	git           # Get section (git_branch + git status)
-    docker        #Docker section
+  docker        # Docker section
 	venv          # virtualenv section
 	terraform     # Terraform workspace section
 	exec_time     # Execution time
@@ -152,4 +157,4 @@ SPACESHIP_PROMPT_ORDER=(
 	jobs          # Background jobs indicator
 	exit_code     # Exit code section
 	char          # Prompt character
-    )
+)
