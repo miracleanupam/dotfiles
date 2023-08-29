@@ -68,6 +68,9 @@ HISTFILE=$HOME/.config/zsh/.zsh_history
 # )
 
 source $ZSH/oh-my-zsh.sh
+bindkey -v
+bindkey jj vi-cmd-mode
+bindkey "^R" history-incremental-search-backward
 
 # if [[ $(nmcli device | grep wifi | grep -w "connected" | wc -l) -eq 0 ]]; then
 # 	nmcli device wifi connect "wifi-id" password "********" hidden yes
