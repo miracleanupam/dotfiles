@@ -16,9 +16,9 @@ set statusline+=\ %m
 set statusline+=%=
 set statusline+=%l,%c
 
-" Folding method, best for python development
-" set foldmethod=indent
-" set foldlevel=99
+" Folding method, best for python and ruby development
+set foldmethod=indent
+set foldlevel=99
 " noremap <S-f> za
 " noremap <C-f> zA
 
@@ -27,6 +27,8 @@ set statusline+=%l,%c
 map <F1> <Esc>
 imap <F1> <Esc>
 inoremap jj <Esc>
+noremap <C-j> gj
+noremap <C-k> gk
 
 " Don't bother with backwards compatability
 set nocompatible
@@ -54,8 +56,19 @@ set linebreak
 set splitbelow
 set splitright
 
-" Set tab spaces to 4
-set tabstop=4 softtabstop=4 expandtab shiftwidth=4 smarttab
+" Set tab spaces to 2
+set tabstop=2 softtabstop=2 expandtab shiftwidth=2 smarttab
+" " display indentation guides
+" set list listchars=tab:❘-,trail:·,extends:»,precedes:«,nbsp:×
+
+" " convert spaces to tabs when reading file 
+" autocmd! bufreadpost * set noexpandtab | retab! 2
+
+" " convert tabs to spaces before writing file 
+" autocmd! bufwritepre * set expandtab | retab! 2
+
+" " convert spaces to tabs after writing file (to show guides again) 
+" autocmd! bufwritepost * set noexpandtab | retab! 2
 
 " Reload the file on changes
 set autoread
@@ -217,8 +230,6 @@ noremap <F9> :set number! relativenumber!<CR>
 noremap <F7> :buffers<CR>:buffer<Space>
 nnoremap <C-n> :bn<CR>
 nnoremap <C-m> :bp<CR>
-nnoremap <S-N> gt<CR>
-nnoremap <S-M> gT<CR>
 
 " Toggle search highlight with F6
 " Setting hlsearch on highlight the keywords even when you don't need them, so
@@ -246,7 +257,7 @@ inoremap <Tab><Tab><Tab> <Esc>/<++><CR>"_c4l
 
 " Keyremaps for generating opening and closing tags
 " type the tag to create and press Shift+t
-inoremap <C-t> <<++>><++></><Esc>13hdiwp11lp0/<++><CR>"_c4l
+inoremap ;tt <<++>><++></><Esc>13hdiwp11lp0/<++><CR>"_c4l
 inoremap ;rt <% <++> %><Esc>6h4cl
 inoremap ;rtt <%= <++> %><Esc>6h4cl
 
@@ -296,23 +307,24 @@ let g:ale_linters = {
 let g:ale_fixers = { 'ruby': ['rubocop'] }
 let g:airline#extensions#ale#enabled = 1
 let g:ale_sign_column_always = 1
+let g:ale_set_highlights = 0
 
 " Mapping for ALEFix
 nnoremap ;fix :ALEFix<CR>
 
 function RSpecLine()
     execute ':w'
-    execute "!rspec -fd %:".line(".")
+    execute "!bundle exec rspec -fd %:".line(".")
 endfunction
 
 function RSpecFile()
     execute ':w'
-    execute "!rspec -fd %"
+    execute "!bundle exec rspec -fd %"
 endfunction
 
 function RSpecAll()
     execute ':w'
-    execute "!rspec -fd"
+    execute "!bundle exec rspec -fd"
 endfunction
 
 nnoremap ;rl :call RSpecLine()<CR>
@@ -322,6 +334,7 @@ nnoremap ;ra :call RSpecAll()<CR>
 call plug#begin()
 Plug 'vimwiki/vimwiki'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-rails'
 Plug 'dense-analysis/ale'
 Plug 'vim-airline/vim-airline'
 call plug#end()
@@ -329,3 +342,7 @@ call plug#end()
 " let g:vimwiki_list = [{ 'path': '~/notes', 'syntax': 'markdown', 'ext': '.md' }]
 
 " autocmd FileType vimwiki set ft=markdown
+
+" Do not look for completion in included files, :h 'cpt
+setglobal complete-=i
+setlocal complete-=i
