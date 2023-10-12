@@ -1,3 +1,16 @@
 [user]
 	name = Anupam Dahal
 	email = miracleanupam@gmail.com
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false
+[init]
+	defaultBranch = main
+[merge]
+	tool = vimdiff
