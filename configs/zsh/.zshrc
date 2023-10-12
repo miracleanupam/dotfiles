@@ -116,6 +116,7 @@ export CHROME_EXECUTABLE=/usr/bin/google-chrome-stable
 # Git aliases
 alias gss="git status"
 alias gd="git diff"
+alias gdd="git difftool"
 alias gco="git checkout"
 alias gcb="git checkout -b"
 alias gcom="git checkout master || git checkout main"
@@ -129,6 +130,13 @@ alias grs="git restore --staged"
 alias ga="git add"
 alias gct="git commit -m"
 alias gl="git log"
+alias gs="git stash"
+alias gsa="git stash apply"
+alias gsd="git stash drop"
+alias gsh="git stash show"
+alias gsl="git stash list"
+alias gsm="git stash -m"
+alias gsp="git stash pop"
 
 # Mount aliases
 # alias mcard="sudo mount /dev/mmcblk0p1 /mnt/mcard/"
