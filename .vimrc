@@ -50,7 +50,7 @@ set ignorecase
 set linebreak
 
 " Option for 80 characters column indicator for coding style, cc for short
-" set colorcolumn=80
+set colorcolumn=80
 
 " Set split to the right and below
 set splitbelow
@@ -346,3 +346,12 @@ call plug#end()
 " Do not look for completion in included files, :h 'cpt
 setglobal complete-=i
 setlocal complete-=i
+
+" Highlight colors for vimdiff
+highlight DiffAdd ctermbg=22
+highlight DiffDelete ctermbg=52
+highlight DiffChange ctermbg=8
+highlight DiffText ctermbg=25
+
+" Remove readonly mode on vimdiff
+set noro
