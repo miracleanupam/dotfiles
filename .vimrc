@@ -73,8 +73,16 @@ set clipboard=unnamedplus
 " Leader Mapping
 let mapleader = " "
 
+" Find Cursor
+highlight CursorLine ctermbg=darkgrey ctermfg=black
+highlight CursorColumn ctermbg=darkgrey ctermfg=black
+map <leader>h:set cursorline! cursorcolumn!<CR>
+
 "Source .vimrc
 nnoremap <leader>so :source ~/.vimrc<CR>
+
+" reselect pasted text
+nnoremap gp `[v`]
 
 " Project wide search
 nnoremap <leader>fd :execute 'Rg ' . input('RipGrep Search: ')<CR>
@@ -114,6 +122,7 @@ nnoremap <F12> :!git difftool --dir-diff <CR><CR>
 
 " jj to escape
 inoremap jj <Esc>
+cnoremap jj <C-c>
 
 " Move one line
 noremap <C-j> gj
@@ -170,6 +179,8 @@ nnoremap <A-m> gT<CR>
 " fzf files finder
 nnoremap <A-p> :GFiles<CR>
 nnoremap <A-P> :Files<CR>
+nnoremap <leader>gf :GFiles<CR>
+nnoremap <leader>ff :Files<CR>
 
 " netrw Settings
 " let g:netrw_keepdir=0
