@@ -19,3 +19,9 @@ nnoremap <leader>dls :g/console.log/d<CR>
 
 " Try catch in javascript
 inoremap ;tc try<Space>{<CR><++><CR><BS><BS>}<Space>catch<Space>(e)<Space>{<CR><++><CR><BS><BS>}<ESC>kkk/<++><CR>"_cw
+
+" Set colors for non printing characters, as dim as possible
+:hi SpecialKey ctermfg=0
+
+" Leading consecutinve spaces are replaced by <Space>|
+set list listchars=leadmultispace:┊\ ,trail:.

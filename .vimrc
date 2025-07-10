@@ -1,8 +1,6 @@
 " Key mappings for ALT keys
 execute "set <A-n>=\en"
 execute "set <A-m>=\em"
-execute "set <A-p>=\ep"
-execute "set <A-P>=\eP"
 
 " Set up thinga
 set encoding=utf-8
@@ -52,17 +50,6 @@ set splitright
 
 " Set tab spaces to 2
 set tabstop=2 softtabstop=2 expandtab shiftwidth=2 smarttab
-" " display indentation guides
-" set list listchars=tab:❘-,trail:·,extends:»,precedes:«,nbsp:×
-
-" " convert spaces to tabs when reading file 
-" autocmd! bufreadpost * set noexpandtab | retab! 2
-
-" " convert tabs to spaces before writing file 
-" autocmd! bufwritepre * set expandtab | retab! 2
-
-" " convert spaces to tabs after writing file (to show guides again) 
-" autocmd! bufwritepost * set noexpandtab | retab! 2
 
 " Reload the file on changes
 set autoread
@@ -91,7 +78,7 @@ nnoremap <leader>fd :execute 'Rg ' . input('RipGrep Search: ')<CR>
 nnoremap <leader>d :bd<CR>
 
 " Update ctags
-nnoremap <leader>tag :!ctags -R app config spec<CR>
+nnoremap <leader>ts :!ctags -R app config spec<CR>
 
 "Open LazyGit
 nnoremap <leader>lg :!lazygit<CR><CR>
@@ -125,8 +112,10 @@ inoremap jj <Esc>
 cnoremap jj <C-c>
 
 " Move one line
-noremap <C-j> gj
-noremap <C-k> gk
+noremap j  gj
+noremap k gk
+noremap gj j
+noremap gk k
 
 " Keep selection after indenting, gv reselects the last reselction
 vnoremap > >gv
@@ -151,6 +140,9 @@ nmap gx yiW:!xdg-open <cWORD><CR> <C-r>" & <CR><CR>
 " Map <F1> to <Esc> so that help menu does not open by mistake when trying to press <Esc>
 map <F1> <Esc>
 imap <F1> <Esc>
+
+" Toggle list chars (for indentation guide)
+nnoremap <F2> :set list!<CR>
 
 " Open netrw in the directory of the current file
 nnoremap <F3> :Lexplore %:p:h<CR>
@@ -177,8 +169,6 @@ nnoremap <A-n> gt<CR>
 nnoremap <A-m> gT<CR>
 
 " fzf files finder
-nnoremap <A-p> :GFiles<CR>
-nnoremap <A-P> :Files<CR>
 nnoremap <leader>gf :GFiles<CR>
 nnoremap <leader>ff :Files<CR>
 
@@ -205,10 +195,17 @@ let g:ale_linters = {
             \ 'python': ['pylint'],
             \ 'javascript': ['eslint'],
             \}
-let g:ale_fixers = { 'ruby': ['rubocop'] }
+let g:ale_fixers = { 
+            \ 'ruby': ['rubocop'],
+            \ 'python': ['black'],
+            \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+            \}
 let g:airline#extensions#ale#enabled = 1
 let g:ale_sign_column_always = 1
 let g:ale_set_highlights = 0
+
+nmap <silent> ;an <Plug>(ale_previous_wrap)
+nmap <silent> ;ap <Plug>(ale_next_wrap)
 
 " Mapping for ALEFix
 nnoremap ;fix :ALEFix<CR>
@@ -228,9 +225,11 @@ Plug 'mattn/vim-lsp-settings'
 Plug 'jremmen/vim-ripgrep'
 Plug 'slim-template/vim-slim'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
 call plug#end()
 
 let g:lsp_diagnostics_enabled = 0
+let g:lsp_document_highlight_enabled = 0
 
 " let g:vimwiki_list = [{ 'path': '~/notes', 'syntax': 'markdown', 'ext': '.md' }]
 
