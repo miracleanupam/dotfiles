@@ -63,7 +63,7 @@ let mapleader = " "
 " Find Cursor
 highlight CursorLine ctermbg=darkgrey ctermfg=black
 highlight CursorColumn ctermbg=darkgrey ctermfg=black
-map <leader>h:set cursorline! cursorcolumn!<CR>
+map <leader>h :set cursorline! cursorcolumn!<CR>
 
 "Source .vimrc
 nnoremap <leader>so :source ~/.vimrc<CR>
@@ -165,8 +165,8 @@ noremap <F9> :set number! relativenumber!<CR>
 
 " ALT key mappings
 " Move around tabs
-nnoremap <A-n> gt<CR>
-nnoremap <A-m> gT<CR>
+nnoremap <Tab> gt<CR>
+nnoremap <S-Tab> gT<CR>
 
 " fzf files finder
 nnoremap <leader>gf :GFiles<CR>
@@ -182,7 +182,7 @@ let g:netrw_banner=0
 " Mapping to move to next place holder, works on all files
 " Placeholder is chosen as <++> as it is very unlikely to come across this
 " pattern anywehere
-inoremap <Tab><Tab><Tab> <Esc>/<++><CR>"_c4l
+inoremap <leader><Tab> <Esc>/<++><CR>"_c4l
 
 " Keyremaps for generating opening and closing tags
 " type the tag to create and press ;rt, <Tab> 3x times to move to placeholders
@@ -247,3 +247,33 @@ highlight DiffText ctermbg=25
 
 " Remove readonly mode on vimdiff
 set noro
+
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    setlocal signcolumn=yes
+    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+    nmap <buffer> gd <plug>(lsp-definition)
+    nmap <buffer> gs <plug>(lsp-document-symbol-search)
+    nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
+    nmap <buffer> gr <plug>(lsp-references)
+    nmap <buffer> gi <plug>(lsp-implementation)
+    nmap <buffer> gt <plug>(lsp-type-definition)
+    nmap <buffer> <leader>rn <plug>(lsp-rename)
+    nmap <buffer> [g <plug>(lsp-previous-diagnostic)
+    nmap <buffer> ]g <plug>(lsp-next-diagnostic)
+    nmap <buffer> K <plug>(lsp-hover)
+    nmap gvd :vs<CR><plug>(lsp-definition)
+    nmap gtd :vs<CR><plug>(lsp-definition)<C-w>T
+    nmap ghd :s<CR>:normal <plug>(lsp-definition)
+
+    let g:lsp_format_sync_timeout = 1000
+    autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
+    
+    " refer to doc to add more commands
+endfunction
+
+augroup lsp_install
+    au!
+    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END

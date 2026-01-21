@@ -1,9 +1,10 @@
 " These are for ruby files
-inoremap ;rt <% <++> %><Esc>6h4cl
-inoremap ;rtt <%= <++> %><Esc>6h4cl
-inoremap ;f def <++><CR>end<Esc>k2l4cl
-inoremap ;cls class <++> < <++><CR>end<Esc>k4l4cl
-inoremap ;mod module <++><CR>end<Esc>k5l4cl
+inoremap ;rt <% <++> %><Esc>6h"_4cl
+inoremap ;rtt <%= <++> %><Esc>6h"_4cl
+inoremap ;f def <++><CR>end<Esc>k2l"_4cl
+inoremap ;cls class <++> < <++><CR>end<Esc>k4l"_4cl
+inoremap ;mod module <++><CR>end<Esc>k5l"_4cl
+inoremap ;nam namespace <++> do<CR>end<Esc>k/<++><CR>"_4cl
 
 function RSpecLine()
     execute ':w'

@@ -4,11 +4,11 @@
 
 " ;l keys in insert mode inserts console.log() without quotes
 " Useful for logging objects
-inoremap ;l console.log();<Esc>F)i
+inoremap ;l console.debug();<Esc>F)i
 
 " ;ll keys in insert mode inserts console.log('') with quotes
 " Useful for logging custom log remarks
-inoremap ;ll console.log('');<Esc>F'i
+inoremap ;ll console.debug('');<Esc>F'i
 
 " ;f keys in insert mode inserts snippet for creating new function
 " Use space key three times to navigate to the next placeholder
@@ -23,5 +23,5 @@ inoremap ;tc try<Space>{<CR><++><CR><BS><BS>}<Space>catch<Space>(e)<Space>{<CR><
 " Set colors for non printing characters, as dim as possible
 :hi SpecialKey ctermfg=0
 
-" Leading consecutinve spaces are replaced by <Space>|
-set list listchars=leadmultispace:┊\ ,trail:.
+set listchars=leadmultispace:┊\ ,trail:.,eol:\ 
+set list
