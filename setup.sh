@@ -1,6 +1,6 @@
 #! /bin/sh
 
-DOTFILES_DIR="$HOME/.dotfiles"
+DOTFILES_DIR="$HOME/dotfiles"
 BACKUP_DIR="$HOME/.dotfiles_backup/$(date +%Y%m%d_%H%M%S)"
 
 echo "Using $DOTFILES_DIR as source..."
